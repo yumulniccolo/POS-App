@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/CartBtn"
         android:icon="@drawable/shopping_icon"
-        android:title="Item"
+        android:title="CartBtn"
         app:showAsAction="always" />
 </menu>
