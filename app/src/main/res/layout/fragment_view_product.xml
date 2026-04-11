@@ -68,6 +68,7 @@
         </LinearLayout>
     </ScrollView>
 
+
     <LinearLayout
         android:id="@+id/bottomBar"
         android:layout_width="0dp"

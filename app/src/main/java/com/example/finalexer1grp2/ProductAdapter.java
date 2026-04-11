@@ -1,5 +1,6 @@
 package com.example.finalexer1grp2;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,15 +8,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
-
-// TO-DO: Reina add the description variable here appropriately and figure out how to connect this adapter to your fragment
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private List<Product> productList;
     public ProductAdapter(List<Product> productList) {
         this.productList = productList;
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView name, price;
+        ImageView image;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            name = itemView.findViewById(R.id.productName);
+            price = itemView.findViewById(R.id.productPrice);
+            image = itemView.findViewById(R.id.productImage);
+        }
     }
 
     @NonNull
@@ -27,12 +39,23 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ProductViewHolder holder, int position) {
+
         Product currentProduct = productList.get(position);
 
         holder.productName.setText(currentProduct.getName());
-        // The \u20B1 is the Unicode for the Peso sign
-        holder.productPrice.setText(String.format("\u20B1%.2f", currentProduct.getPrice()));
+        holder.productPrice.setText(String.format("₱%.2f", currentProduct.getPrice()));
         holder.productImgRes.setImageResource(currentProduct.getImgRes());
+
+        holder.itemView.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("name", currentProduct.name);
+            bundle.putDouble("price", currentProduct.price);
+            bundle.putString("desc", currentProduct.description);
+            bundle.putInt("image", currentProduct.imgRes);
+
+            Navigation.findNavController(v)
+                    .navigate(R.id.action_productFragment_to_prodViewFragment, bundle);
+        });
     }
 
     @Override
@@ -47,9 +70,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            productName = itemView.findViewById(R.id.textViewProduct);
-            productPrice = itemView.findViewById(R.id.textViewPrice);
-            productImgRes = itemView.findViewById(R.id.imageViewProduct);
+            productName = itemView.findViewById(R.id.productName);
+            productPrice = itemView.findViewById(R.id.productPrice);
+            productImgRes = itemView.findViewById(R.id.productImage);
 
         }
     }
