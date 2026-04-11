@@ -24,7 +24,7 @@
             android:paddingTop="6dp"
             android:paddingRight="16dp"
             android:paddingBottom="6dp"
-            android:text="Items 10" />
+            android:text="Items 9" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/productImagesView"
