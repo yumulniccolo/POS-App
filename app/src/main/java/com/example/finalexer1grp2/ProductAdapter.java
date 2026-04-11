@@ -30,7 +30,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
     }
 
+
+
     @NonNull
+
     @Override
     public ProductAdapter.ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_layout, parent, false);
@@ -75,5 +78,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productImgRes = itemView.findViewById(R.id.productImage);
 
         }
+
+
+
     }
+
+
 }
