@@ -2,23 +2,37 @@ package com.example.finalexer1grp2;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        MaterialToolbar shopToolbar = findViewById(R.id.shopToolbar);
+
+        shopToolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.CartBtn) {
+                NavHostFragment navHostFragment =
+                        (NavHostFragment) getSupportFragmentManager()
+                                .findFragmentById(R.id.fragmentContainerView);
+
+                if (navHostFragment != null) {
+                    NavController navController = navHostFragment.getNavController();
+
+                    if (navController.getCurrentDestination() != null &&
+                            navController.getCurrentDestination().getId() == R.id.productFragment) {
+                        navController.navigate(R.id.action_productFragment_to_cartFragment);
+                    }
+                }
+                return true;
+            }
+            return false;
         });
     }
 }
