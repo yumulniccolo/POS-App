@@ -3,6 +3,7 @@ package com.example.finalexer1grp2;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.text.Html;
@@ -21,6 +22,24 @@ public class viewProduct extends Fragment {
 
     private int quantity = 1;
     public viewProduct() {
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        View activityToolbar = getActivity().findViewById(R.id.shopToolbar);
+        if (activityToolbar != null) {
+            activityToolbar.setVisibility(View.GONE); // This makes it vanish
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        View activityToolbar = getActivity().findViewById(R.id.shopToolbar);
+        if (activityToolbar != null) {
+            activityToolbar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
