@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;           // ← ADD THIS
+import android.widget.TextView;
+import android.widget.Toast;          // ← ADD THIS
+import androidx.appcompat.app.AlertDialog;  // ← ADD THIS
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -38,6 +42,26 @@ public class CartFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
+        // Display total
+        TextView tvTotal = view.findViewById(R.id.tvTotal);
+        tvTotal.setText(CartManager.getInstance().getFormattedTotal());
+
+        // ← ADD THIS: Place Order button code
+        Button btnPlaceOrder = view.findViewById(R.id.btnPlaceOrder);
+        btnPlaceOrder.setOnClickListener(v -> {
+            new AlertDialog.Builder(requireContext())
+                    .setTitle("Confirm Order")
+                    .setMessage("Are all orders correct?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        CartManager.getInstance().getCartItems().clear();
+                        tvTotal.setText("₱ 0.00");
+                        recyclerView.getAdapter().notifyDataSetChanged();
+                        Toast.makeText(requireContext(), "Order is placed! Please wait for delivery.", Toast.LENGTH_LONG).show();
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+        });
+
         return view;
     }
 
@@ -45,6 +69,9 @@ public class CartFragment extends Fragment {
     public void onResume() {
         super.onResume();
         requireActivity().findViewById(R.id.shopToolbar).setVisibility(View.GONE);
+
+        TextView tvTotal = requireView().findViewById(R.id.tvTotal);
+        tvTotal.setText(CartManager.getInstance().getFormattedTotal());
     }
 
     @Override
