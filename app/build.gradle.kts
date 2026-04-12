@@ -13,6 +13,7 @@ android {
     defaultConfig {
         applicationId = "com.example.finalexer1grp2"
         minSdk = 24
+24
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"

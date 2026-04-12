@@ -116,5 +116,5 @@ public class ItemView extends Fragment {
                     .show();
         });
 
-    } // end onViewCreated
-} // end class
+    }
+}
