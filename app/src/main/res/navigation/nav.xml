@@ -28,9 +28,9 @@
     </fragment>
     <fragment
         android:id="@+id/prodViewFragment"
-        android:name="com.example.finalexer1grp2.viewProduct"
+        android:name="com.example.finalexer1grp2.ItemView"
         android:label="fragment_view_product"
-        tools:layout="@layout/fragment_view_product">
+        tools:layout="@layout/fragment_item_view">
         <action
             android:id="@+id/action_prodViewFragment_to_productFragment"
             app:destination="@id/productFragment" />

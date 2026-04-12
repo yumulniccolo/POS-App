@@ -26,15 +26,15 @@ public class ProductFragment extends Fragment {
 
         // This is where we call our string.xml
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(getString(R.string.prodName0), 2500.00, R.drawable.game_and_watch_ball, getString(R.string.prodDesc0)));
-        productList.add(new Product(getString(R.string.prodName1), 6200.00, R.drawable.sega_game_gear_wb, getString(R.string.prodDesc1)));
-        productList.add(new Product(getString(R.string.prodName2), 8600.00, R.drawable.nintendo_game_boy_advance_purple_fl, getString(R.string.prodDesc2)));
-        productList.add(new Product(getString(R.string.prodName3), 7800.00, R.drawable.nintendo_ds_lite_black_open, getString(R.string.prodDesc3)));
-        productList.add(new Product(getString(R.string.prodName4), 17000.00, R.drawable.playstation_vita_1101_fl, getString(R.string.prodDesc4)));
-        productList.add(new Product(getString(R.string.prodName5), 35000.00, R.drawable.steamdeck, getString(R.string.prodDesc5)));
-        productList.add(new Product(getString(R.string.prodName6), 12300.00, R.drawable.nintendo_3ds_aquaopen, getString(R.string.prodDesc6)));
-        productList.add(new Product(getString(R.string.prodName7), 4000.00, R.drawable.psp_1000, getString(R.string.prodDesc7)));
-        productList.add(new Product(getString(R.string.prodName8), 16990.00, R.drawable.nintendo_switch_wjoycons_blrd_standing_fl, getString(R.string.prodDesc8)));
+        productList.add(new Product(getString(R.string.prodName0), 10.00, R.drawable.rj45, getString(R.string.prodDesc0)));
+        productList.add(new Product(getString(R.string.prodName1), 450.00, R.drawable.crimping_tool, getString(R.string.prodDesc1)));
+        productList.add(new Product(getString(R.string.prodName2), 350.00, R.drawable.network_tester, getString(R.string.prodDesc2)));
+        productList.add(new Product(getString(R.string.prodName3), 120.00, R.drawable.stripper, getString(R.string.prodDesc3)));
+        productList.add(new Product(getString(R.string.prodName4), 15.00, R.drawable.rj45_passthru, getString(R.string.prodDesc4)));
+        productList.add(new Product(getString(R.string.prodName5), 300.00, R.drawable.punch_down_tool, getString(R.string.prodDesc5)));
+        productList.add(new Product(getString(R.string.prodName6), 250.00, R.drawable.lan_cutter, getString(R.string.prodDesc6)));
+        productList.add(new Product(getString(R.string.prodName7), 25.00, R.drawable.cat6, getString(R.string.prodDesc7)));
+        productList.add(new Product(getString(R.string.prodName8), 750.00, R.drawable.network_kit, getString(R.string.prodDesc8)));
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
