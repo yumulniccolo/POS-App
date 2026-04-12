@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,19 +23,31 @@ public class ProductFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         RecyclerView recyclerView = view.findViewById(R.id.productImagesView);
 
-        // This is where we call our string.xml
+        String[] names = getResources().getStringArray(R.array.product_names);
+        int itemCount = names.length;
+        TextView numItemsView = view.findViewById(R.id.numItemsView);
+        numItemsView.setText(getString(R.string.items_count_template, itemCount));
+
+        String[] prices = getResources().getStringArray(R.array.product_prices);
+        String[] descriptions = getResources().getStringArray(R.array.product_descriptions);
+
+        android.content.res.TypedArray images = getResources().obtainTypedArray(R.array.product_images);
+
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(getString(R.string.prodName0), 10.00, R.drawable.rj45, getString(R.string.prodDesc0)));
-        productList.add(new Product(getString(R.string.prodName1), 450.00, R.drawable.crimping_tool, getString(R.string.prodDesc1)));
-        productList.add(new Product(getString(R.string.prodName2), 350.00, R.drawable.network_tester, getString(R.string.prodDesc2)));
-        productList.add(new Product(getString(R.string.prodName3), 120.00, R.drawable.stripper, getString(R.string.prodDesc3)));
-        productList.add(new Product(getString(R.string.prodName4), 15.00, R.drawable.rj45_passthru, getString(R.string.prodDesc4)));
-        productList.add(new Product(getString(R.string.prodName5), 300.00, R.drawable.punch_down_tool, getString(R.string.prodDesc5)));
-        productList.add(new Product(getString(R.string.prodName6), 250.00, R.drawable.lan_cutter, getString(R.string.prodDesc6)));
-        productList.add(new Product(getString(R.string.prodName7), 25.00, R.drawable.cat6, getString(R.string.prodDesc7)));
-        productList.add(new Product(getString(R.string.prodName8), 750.00, R.drawable.network_kit, getString(R.string.prodDesc8)));
+        for (int i = 0; i < names.length; i++) {
+            String name = names[i];
+            double price = Double.parseDouble(prices[i]);
+            String desc = descriptions[i];
+
+            int imageResId = images.getResourceId(i, -1);
+
+            productList.add(new Product(name, price, imageResId, desc));
+        }
+        images.recycle();
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 

@@ -1,52 +1,53 @@
 <resources>
-    <string name="app_name">POS-App</string>
+    <string name="app_name">Networking Shop</string>
+    <string name="items_count_template">Items %1$d</string>
 
-    <!--Product Name-->
-    <string name="prodName0">RJ45</string>
-    <string name="prodName1">Crimping Tool</string>
-    <string name="prodName2">Network Tester</string>
-    <string name="prodName3">Stripper</string>
-    <string name="prodName4">RJ45 Pass-through</string>
-    <string name="prodName5">Punch Down Tool</string>
-    <string name="prodName6">Lan Cutter</string>
-    <string name="prodName7">LAN Cable Cat6</string>
-    <string name="prodName8">Network Tool Kit</string>
+    <string-array name="product_names">
+        <item>RJ45 Connector</item>
+        <item>Crimping Tool</item>
+        <item>Network Tester</item>
+        <item>Stripper</item>
+        <item>RJ45 Pass-through</item>
+        <item>Punch Down Tool</item>
+        <item>Lan Cutter</item>
+        <item>LAN Cable Cat6</item>
+        <item>Network Tool Kit</item>
+    </string-array>
 
-    <!--Product Description-->
-    <string name="prodDesc0">
-        The standard physical connector used for Ethernet networking. It features 8 pins that terminate the 8 wires within a standard twisted-pair network cable.
-    </string>
+    <string-array name="product_prices">
+        <item>10.00</item>
+        <item>450.00</item>
+        <item>350.00</item>
+        <item>120.00</item>
+        <item>15.00</item>
+        <item>300.00</item>
+        <item>250.00</item>
+        <item>25.00</item>
+        <item>750.00</item>
+    </string-array>
 
-    <string name="prodDesc1">
-        A specialized set of pliers used to "crimp" or fuse an RJ45 connector onto the end of a LAN cable. It pushes the metal contacts of the connector into the internal wires to create a solid electrical path.
-    </string>
+    <array name="product_images">
+        <item>@drawable/rj45</item>
+        <item>@drawable/crimping_tool</item>
+        <item>@drawable/network_tester</item>
+        <item>@drawable/stripper</item>
+        <item>@drawable/rj45_passthru</item>
+        <item>@drawable/punch_down_tool</item>
+        <item>@drawable/lan_cutter</item>
+        <item>@drawable/cat6</item>
+        <item>@drawable/network_kit</item>
+    </array>
 
-    <string name="prodDesc2">
-        A battery-operated device used to verify that a cable is wired correctly. It consists of a master unit and a remote unit; when connected to both ends of a cable, it lights up in sequence to show if there are any breaks or crossed wires.
-    </string>
-
-    <string name="prodDesc3">
-        A small tool with a protected blade designed to remove the outer plastic insulation (jacket) of a network cable without nicking the delicate copper wires inside.
-    </string>
-
-    <string name="prodDesc4">
-        An updated version of the standard RJ45 connector where the wires slide completely through the front of the plug. This allows you to verify the wire order before crimping, significantly reducing mistakes.
-    </string>
-
-    <string name="prodDesc5">
-        Used for inserting wires into "insulation-displacement connectors" (IDC) found on the back of patch panels or inside wall jacks (keystone jacks). It pushes the wire into the slot and trims the excess in one motion.
-    </string>
-
-    <string name="prodDesc6">
-        While often built into crimping tools, a dedicated LAN cutter is a sharp, flat-bladed tool used to get a perfectly flush, clean cut on a bundle of wires or a thick CAT6 cable.
-    </string>
-
-    <string name="prodDesc7">
-        "Category 6" is a standardized twisted pair cable for Ethernet. Compared to Cat5e, it has stricter specifications for crosstalk and system noise and can support speeds up to 10 Gbps over shorter distances.
-    </string>
-
-    <string name="prodDesc8">
-        A comprehensive bundle—usually in a carrying case—that contains all the items mentioned above. It’s the "all-in-one" solution for technicians to carry their termination and testing gear to a job site.
-    </string>
+    <string-array name="product_descriptions">
+        <item>The standard physical connector used for Ethernet networking. It features 8 pins that terminate the 8 wires within a standard twisted-pair network cable.</item>
+        <item>A specialized set of pliers used to "crimp" or fuse an RJ45 connector onto the end of a LAN cable. It pushes the metal contacts of the connector into the internal wires to create a solid electrical path.</item>
+        <item>A battery-operated device used to verify that a cable is wired correctly. It consists of a master unit and a remote unit; when connected to both ends of a cable, it lights up in sequence to show if there are any breaks or crossed wires.</item>
+        <item>A small tool with a protected blade designed to remove the outer plastic insulation (jacket) of a network cable without nicking the delicate copper wires inside.</item>
+        <item>An updated version of the standard RJ45 connector where the wires slide completely through the front of the plug. This allows you to verify the wire order before crimping, significantly reducing mistakes.</item>
+        <item>Used for inserting wires into "insulation-displacement connectors" (IDC) found on the back of patch panels or inside wall jacks (keystone jacks). It pushes the wire into the slot and trims the excess in one motion.</item>
+        <item>While often built into crimping tools, a dedicated LAN cutter is a sharp, flat-bladed tool used to get a perfectly flush, clean cut on a bundle of wires or a thick CAT6 cable.</item>
+        <item>Category 6 is a standardized twisted pair cable for Ethernet. Compared to Cat5e, it has stricter specifications for crosstalk and system noise and can support speeds up to 10 Gbps over shorter distances.</item>
+        <item>A comprehensive bundle—usually in a carrying case—that contains all the items mentioned above. It’s the "all-in-one" solution for technicians to carry their termination and testing gear to a job site.</item>
+    </string-array>
 
 </resources>
