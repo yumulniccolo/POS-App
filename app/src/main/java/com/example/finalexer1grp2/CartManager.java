@@ -37,4 +37,8 @@ public class CartManager {
         }
         return total;
     }
+    public String getFormattedTotal() {
+        double total = getCartTotal();
+        return String.format("₱ %,.2f", total);
+    }
 }
