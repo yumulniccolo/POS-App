@@ -105,6 +105,11 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartChangeLi
     }
 
     @Override
+    public void onDataChanged() {
+        tvTotal.setText(CartManager.getInstance().getFormattedTotal());
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         requireActivity().findViewById(R.id.shopToolbar).setVisibility(View.GONE);

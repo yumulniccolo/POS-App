@@ -23,6 +23,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     // ← DAGDAG: Interface para sa callback
     public interface OnCartChangeListener {
         void onItemDeleted();
+
+        void onDataChanged();
     }
 
     private OnCartChangeListener listener;
@@ -36,7 +38,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        context = parent.getContext();
+        View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_cart, parent, false);
         return new CartViewHolder(view);
     }
@@ -75,7 +78,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             holder.cartQty.setText(String.valueOf(item.quantity));
             holder.cartPrice.setText(String.format("₱%.2f", item.getTotalPrice()));
 
-            // TODO: listener to update the Fragment's Subtotal
+            if (listener != null) {
+                listener.onDataChanged();
+            }
         });
 
         holder.minusBtn.setOnClickListener(v -> {
@@ -84,7 +89,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 holder.cartQty.setText(String.valueOf(item.quantity));
                 holder.cartPrice.setText(String.format("₱%.2f", item.getTotalPrice()));
 
-            // Call listener here
+                if (listener != null) {
+                    listener.onDataChanged();
+                }
             }
         });
     }
