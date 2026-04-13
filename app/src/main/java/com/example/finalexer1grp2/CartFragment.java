@@ -41,6 +41,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartChangeLi
 
         recyclerView = view.findViewById(R.id.cartRecyclerview);  // ← PALITAN: remove "RecyclerView "
         List<CartItem> items = CartManager.getInstance().getCartItems();
+        ((MainActivity) requireActivity()).updateCartBadge(items);
 
         // ← PALITAN: Dagdagan ng "this" parameter para sa interface
         CartAdapter adapter = new CartAdapter(items, this);
@@ -98,15 +99,10 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartChangeLi
         return view;
     }
 
-    // ← DAGDAG: Implement yung interface method para real-time update
     @Override
-    public void onItemDeleted() {
+    public void onCartUpdated(List<CartItem> updatedCart) {
         tvTotal.setText(CartManager.getInstance().getFormattedTotal());
-    }
-
-    @Override
-    public void onDataChanged() {
-        tvTotal.setText(CartManager.getInstance().getFormattedTotal());
+        ((MainActivity) requireActivity()).updateCartBadge(updatedCart);
     }
 
     @Override

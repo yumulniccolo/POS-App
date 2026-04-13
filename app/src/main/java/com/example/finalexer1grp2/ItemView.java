@@ -105,6 +105,9 @@ public class ItemView extends Fragment {
                                 new CartItem(productName, productPrice, quantity, getArguments().getInt("image"))
                         );
 
+                        ((MainActivity) requireActivity())
+                                .updateCartBadge(CartManager.getInstance().getCartItems());
+
                         Toast.makeText(requireContext(),
                                 quantity + " " + productName + " added to cart",
                                 Toast.LENGTH_SHORT).show();

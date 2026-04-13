@@ -22,9 +22,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     // ← DAGDAG: Interface para sa callback
     public interface OnCartChangeListener {
-        void onItemDeleted();
+        void onCartUpdated(List<CartItem> updatedCart);
 
-        void onDataChanged();
     }
 
     private OnCartChangeListener listener;
@@ -66,7 +65,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
                         // ← DAGDAG: Call listener para ma-update yung subtotal sa Fragment
                         if (listener != null) {
-                            listener.onItemDeleted();
+                            listener.onCartUpdated(cartItems);
                         }
                     })
                     .setNegativeButton("No", null)
@@ -79,7 +78,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             holder.cartPrice.setText(String.format("₱%.2f", item.getTotalPrice()));
 
             if (listener != null) {
-                listener.onDataChanged();
+                listener.onCartUpdated(cartItems);
             }
         });
 
@@ -90,7 +89,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 holder.cartPrice.setText(String.format("₱%.2f", item.getTotalPrice()));
 
                 if (listener != null) {
-                    listener.onDataChanged();
+                    listener.onCartUpdated(cartItems);
                 }
             }
         });
