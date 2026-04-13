@@ -12,6 +12,8 @@
         <item>Lan Cutter</item>
         <item>LAN Cable Cat6</item>
         <item>Network Tool Kit</item>
+        <item>RJ45 Keystone Jack</item>
+        <item>Nylon Cable Ties</item>
     </string-array>
 
     <string-array name="product_prices">
@@ -24,6 +26,8 @@
         <item>250.00</item>
         <item>25.00</item>
         <item>750.00</item>
+        <item>20.00</item>
+        <item>10.00</item>
     </string-array>
 
     <array name="product_images">
@@ -36,6 +40,8 @@
         <item>@drawable/lan_cutter</item>
         <item>@drawable/cat6</item>
         <item>@drawable/network_kit</item>
+        <item>@drawable/keystonejack</item>
+        <item>@drawable/nylon</item>
     </array>
 
     <string-array name="product_descriptions">
@@ -48,6 +54,8 @@
         <item>While often built into crimping tools, a dedicated LAN cutter is a sharp, flat-bladed tool used to get a perfectly flush, clean cut on a bundle of wires or a thick CAT6 cable.</item>
         <item>Category 6 is a standardized twisted pair cable for Ethernet. Compared to Cat5e, it has stricter specifications for crosstalk and system noise and can support speeds up to 10 Gbps over shorter distances.</item>
         <item>A comprehensive bundle—usually in a carrying case—that contains all the items mentioned above. It’s the "all-in-one" solution for technicians to carry their termination and testing gear to a job site.</item>
+        <item>Modular Ethernet connector that terminates network cables and provides clean, professional connections to wall plates or patch panels. Features easy punch-down installation and supports Cat5e/Cat6 standards for reliable data transmission.</item>
+        <item>Durable, self-locking plastic straps designed to bundle, secure, and organize cables, wires, and various objects with ease. Available in multiple sizes and colors to suit home, office, and industrial applications.</item>
     </string-array>
 
 </resources>
