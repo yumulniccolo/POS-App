@@ -15,7 +15,8 @@
             app:destination="@id/prodViewFragment" />
         <action
             android:id="@+id/action_productFragment_to_cartFragment"
-            app:destination="@id/cartFragment" />
+            app:destination="@id/cartFragment"
+            app:popUpTo="@id/productFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -24,7 +25,9 @@
         tools:layout="@layout/fragment_cart" >
         <action
             android:id="@+id/action_cartFragment_to_productFragment"
-            app:destination="@id/productFragment" />
+            app:destination="@id/productFragment"
+            app:popUpTo="@id/productFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/prodViewFragment"
@@ -33,6 +36,8 @@
         tools:layout="@layout/fragment_item_view">
         <action
             android:id="@+id/action_prodViewFragment_to_productFragment"
-            app:destination="@id/productFragment" />
+            app:destination="@id/productFragment"
+            app:popUpTo="@id/productFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
