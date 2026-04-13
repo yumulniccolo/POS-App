@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -71,7 +72,7 @@ public class ItemView extends Fragment {
         }
 
         toolbar.setNavigationOnClickListener(v ->
-                requireActivity().getOnBackPressedDispatcher().onBackPressed()
+                Navigation.findNavController(view).navigate(R.id.action_prodViewFragment_to_productFragment)
         );
 
         addBtn.setOnClickListener(v -> {
