@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,8 +36,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context = parent.getContext();
-        View view = LayoutInflater.from(context)
+        View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_cart, parent, false);
         return new CartViewHolder(view);
     }
@@ -47,7 +47,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         holder.cartName.setText(item.name);
         holder.cartPrice.setText(String.format("₱%.2f", item.getTotalPrice()));
-        holder.cartQty.setText("QTY " + item.quantity);
+        holder.cartQty.setText(String.valueOf(item.quantity));
         holder.cartImage.setImageResource(item.imageRes);
 
         // ← DAGDAG: Delete with confirmation dialog
@@ -69,6 +69,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     .setNegativeButton("No", null)
                     .show();
         });
+
+        holder.addBtn.setOnClickListener(v -> {
+            item.quantity++;
+            holder.cartQty.setText(String.valueOf(item.quantity));
+            holder.cartPrice.setText(String.format("₱%.2f", item.getTotalPrice()));
+
+            // TODO: listener to update the Fragment's Subtotal
+        });
+
+        holder.minusBtn.setOnClickListener(v -> {
+            if (item.quantity > 1) {
+                item.quantity--;
+                holder.cartQty.setText(String.valueOf(item.quantity));
+                holder.cartPrice.setText(String.format("₱%.2f", item.getTotalPrice()));
+
+            // Call listener here
+            }
+        });
     }
 
     @Override
@@ -79,7 +97,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public static class CartViewHolder extends RecyclerView.ViewHolder {
         TextView cartName, cartPrice, cartQty;
         ImageView cartImage;
-        ImageButton deleteBtn;
+        ImageButton deleteBtn, addBtn, minusBtn;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +106,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             cartQty   = itemView.findViewById(R.id.item_qty_cart);
             cartImage = itemView.findViewById(R.id.item_img_cart);
             deleteBtn = itemView.findViewById(R.id.dlt_btn);
+            addBtn    = itemView.findViewById(R.id.add_btn_cart);
+            minusBtn  = itemView.findViewById(R.id.minus_btn_cart);
         }
     }
 }
