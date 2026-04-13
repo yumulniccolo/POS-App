@@ -3,6 +3,7 @@ package com.example.finalexer1grp2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,13 +35,31 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         holder.cartName.setText(item.name);
         holder.cartPrice.setText(String.format("₱%.2f", item.getTotalPrice()));
-        holder.cartQty.setText("QTY " + item.quantity);
+        holder.cartQty.setText(String.valueOf(item.quantity));
         holder.cartImage.setImageResource(item.imageRes);
 
         holder.deleteBtn.setOnClickListener(v -> {
             cartItems.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, cartItems.size());
+        });
+
+        holder.addBtn.setOnClickListener(v -> {
+            item.quantity++;
+            holder.cartQty.setText(String.valueOf(item.quantity));
+            holder.cartPrice.setText(String.format("₱%.2f", item.getTotalPrice()));
+
+            // TODO: listener to update the Fragment's Subtotal
+        });
+
+        holder.minusBtn.setOnClickListener(v -> {
+            if (item.quantity > 1) {
+                item.quantity--;
+                holder.cartQty.setText(String.valueOf(item.quantity));
+                holder.cartPrice.setText(String.format("₱%.2f", item.getTotalPrice()));
+
+            // Call listener here
+            }
         });
     }
 
@@ -52,15 +71,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public static class CartViewHolder extends RecyclerView.ViewHolder {
         TextView cartName, cartPrice, cartQty;
         ImageView cartImage;
-        ImageButton deleteBtn;
+        ImageButton deleteBtn, addBtn, minusBtn;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
-            cartName  = itemView.findViewById(R.id.textView2);
-            cartPrice = itemView.findViewById(R.id.textView6);
-            cartQty   = itemView.findViewById(R.id.textView7);
-            cartImage = itemView.findViewById(R.id.imageView2);
-            deleteBtn = itemView.findViewById(R.id.imageButton2);
+            cartName  = itemView.findViewById(R.id.item_name_cart);
+            cartPrice = itemView.findViewById(R.id.item_price_cart);
+            cartQty   = itemView.findViewById(R.id.item_qty_cart);
+            cartImage = itemView.findViewById(R.id.item_img_cart);
+            deleteBtn = itemView.findViewById(R.id.dlt_btn);
+            addBtn    = itemView.findViewById(R.id.add_btn_cart);
+            minusBtn  = itemView.findViewById(R.id.minus_btn_cart);
         }
     }
 }

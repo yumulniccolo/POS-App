@@ -52,9 +52,9 @@ public class ItemView extends Fragment {
         ImageView image   = view.findViewById(R.id.imageView);
         MaterialToolbar toolbar = view.findViewById(R.id.fragment_cart_toolbar);
 
-        ImageButton minusBtn   = view.findViewById(R.id.minusBtn);
-        ImageButton addBtn     = view.findViewById(R.id.addBtn);
-        TextView tvQuantity    = view.findViewById(R.id.tvQuantity);
+        ImageButton minusBtn   = view.findViewById(R.id.minus_btn_cart);
+        ImageButton addBtn     = view.findViewById(R.id.add_btn_cart);
+        TextView tvQuantity    = view.findViewById(R.id.item_qty_cart);
         Button btnAddToCart    = view.findViewById(R.id.btnAddToCart);
 
         if (getArguments() != null) {

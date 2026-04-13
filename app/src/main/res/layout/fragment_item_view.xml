@@ -93,7 +93,7 @@
             android:background="@android:drawable/editbox_background">
 
             <ImageButton
-                android:id="@+id/minusBtn"
+                android:id="@+id/minus_btn_cart"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -101,14 +101,14 @@
                 android:background="@android:color/transparent" />
 
             <TextView
-                android:id="@+id/tvQuantity"
+                android:id="@+id/item_qty_cart"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:text="1" />
 
             <ImageButton
-                android:id="@+id/addBtn"
+                android:id="@+id/add_btn_cart"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
