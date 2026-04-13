@@ -13,8 +13,8 @@
     app:cardElevation="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="361dp"
+        android:layout_height="73dp"
         android:padding="12dp"
         android:paddingStart="12dp"
         android:paddingLeft="12dp"

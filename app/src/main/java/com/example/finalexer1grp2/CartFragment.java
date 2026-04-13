@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;           // ← ADD THIS
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;          // ← ADD THIS
-import androidx.appcompat.app.AlertDialog;  // ← ADD THIS
+import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -19,7 +19,11 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.List;
 
-public class CartFragment extends Fragment {
+// ← DAGDAG: Implement yung interface from CartAdapter
+public class CartFragment extends Fragment implements CartAdapter.OnCartChangeListener {
+
+    private RecyclerView recyclerView;  // ← DAGDAG: Instance variable para ma-access sa methods
+    private TextView tvTotal;           // ← DAGDAG: Instance variable
 
     public CartFragment() {
     }
@@ -35,23 +39,52 @@ public class CartFragment extends Fragment {
             navController.navigate(R.id.action_cartFragment_to_productFragment);
         });
 
-        RecyclerView recyclerView = view.findViewById(R.id.cartRecyclerview);
+        recyclerView = view.findViewById(R.id.cartRecyclerview);  // ← PALITAN: remove "RecyclerView "
         List<CartItem> items = CartManager.getInstance().getCartItems();
 
-        CartAdapter adapter = new CartAdapter(items);
+        // ← PALITAN: Dagdagan ng "this" parameter para sa interface
+        CartAdapter adapter = new CartAdapter(items, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
         // Display total
-        TextView tvTotal = view.findViewById(R.id.tvTotal);
+        tvTotal = view.findViewById(R.id.tvTotal);  // ← PALITAN: remove "TextView "
         tvTotal.setText(CartManager.getInstance().getFormattedTotal());
 
-        // ← ADD THIS: Place Order button code
+        // Place Order button code - UPDATED with empty cart check and invoice
         Button btnPlaceOrder = view.findViewById(R.id.btnPlaceOrder);
         btnPlaceOrder.setOnClickListener(v -> {
+            // ← DAGDAG: Check if cart is empty
+            if (CartManager.getInstance().getCartItems().isEmpty()) {
+                new AlertDialog.Builder(requireContext())
+                        .setTitle("Cart is Empty")
+                        .setMessage("Please add items to cart first.")
+                        .setPositiveButton("OK", null)
+                        .show();
+                return;
+            }
+
+            // ← DAGDAG: Build invoice summary
+            StringBuilder invoice = new StringBuilder();
+            invoice.append("Order Summary:\n\n");
+
+            for (CartItem item : CartManager.getInstance().getCartItems()) {
+                invoice.append(item.name)
+                        .append(" x")
+                        .append(item.quantity)
+                        .append(" = ₱")
+                        .append(String.format("%,.2f", item.getTotalPrice()))
+                        .append("\n");
+            }
+
+            invoice.append("\n--------------------\n");
+            invoice.append("Total: ")
+                    .append(CartManager.getInstance().getFormattedTotal());
+
+            // Show confirmation with invoice
             new AlertDialog.Builder(requireContext())
                     .setTitle("Confirm Order")
-                    .setMessage("Are all orders correct?")
+                    .setMessage(invoice.toString())
                     .setPositiveButton("Yes", (dialog, which) -> {
                         CartManager.getInstance().getCartItems().clear();
                         tvTotal.setText("₱ 0.00");
@@ -65,13 +98,21 @@ public class CartFragment extends Fragment {
         return view;
     }
 
+    // ← DAGDAG: Implement yung interface method para real-time update
+    @Override
+    public void onItemDeleted() {
+        tvTotal.setText(CartManager.getInstance().getFormattedTotal());
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         requireActivity().findViewById(R.id.shopToolbar).setVisibility(View.GONE);
 
-        TextView tvTotal = requireView().findViewById(R.id.tvTotal);
-        tvTotal.setText(CartManager.getInstance().getFormattedTotal());
+        // Update total when returning to screen
+        if (tvTotal != null) {
+            tvTotal.setText(CartManager.getInstance().getFormattedTotal());
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.example.finalexer1grp2;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +17,26 @@ import java.util.List;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     private List<CartItem> cartItems;
+    private Context context;
 
-    public CartAdapter(List<CartItem> cartItems) {
+    // ← DAGDAG: Interface para sa callback
+    public interface OnCartChangeListener {
+        void onItemDeleted();
+    }
+
+    private OnCartChangeListener listener;
+
+    // ← DAGDAG: Constructor with listener parameter
+    public CartAdapter(List<CartItem> cartItems, OnCartChangeListener listener) {
         this.cartItems = cartItems;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        context = parent.getContext();
+        View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_cart, parent, false);
         return new CartViewHolder(view);
     }
@@ -34,31 +47,27 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         holder.cartName.setText(item.name);
         holder.cartPrice.setText(String.format("₱%.2f", item.getTotalPrice()));
-        holder.cartQty.setText(String.valueOf(item.quantity));
+        holder.cartQty.setText("QTY " + item.quantity);
         holder.cartImage.setImageResource(item.imageRes);
 
+        // ← DAGDAG: Delete with confirmation dialog
         holder.deleteBtn.setOnClickListener(v -> {
-            cartItems.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, cartItems.size());
-        });
+            new AlertDialog.Builder(context)
+                    .setTitle("Delete Item")
+                    .setMessage("Are you sure you want to delete " + item.name + "?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        // Remove item
+                        cartItems.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, cartItems.size());
 
-        holder.addBtn.setOnClickListener(v -> {
-            item.quantity++;
-            holder.cartQty.setText(String.valueOf(item.quantity));
-            holder.cartPrice.setText(String.format("₱%.2f", item.getTotalPrice()));
-
-            // TODO: listener to update the Fragment's Subtotal
-        });
-
-        holder.minusBtn.setOnClickListener(v -> {
-            if (item.quantity > 1) {
-                item.quantity--;
-                holder.cartQty.setText(String.valueOf(item.quantity));
-                holder.cartPrice.setText(String.format("₱%.2f", item.getTotalPrice()));
-
-            // Call listener here
-            }
+                        // ← DAGDAG: Call listener para ma-update yung subtotal sa Fragment
+                        if (listener != null) {
+                            listener.onItemDeleted();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         });
     }
 
@@ -70,7 +79,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public static class CartViewHolder extends RecyclerView.ViewHolder {
         TextView cartName, cartPrice, cartQty;
         ImageView cartImage;
-        ImageButton deleteBtn, addBtn, minusBtn;
+        ImageButton deleteBtn;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,8 +88,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             cartQty   = itemView.findViewById(R.id.item_qty_cart);
             cartImage = itemView.findViewById(R.id.item_img_cart);
             deleteBtn = itemView.findViewById(R.id.dlt_btn);
-            addBtn    = itemView.findViewById(R.id.add_btn_cart);
-            minusBtn  = itemView.findViewById(R.id.minus_btn_cart);
         }
     }
 }
