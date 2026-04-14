@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +19,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private List<CartItem> cartItems;
     private Context context;
 
-    // ← DAGDAG: Interface para sa callback
     public interface OnCartChangeListener {
         void onCartUpdated(List<CartItem> updatedCart);
 
@@ -28,7 +26,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     private OnCartChangeListener listener;
 
-    // ← DAGDAG: Constructor with listener parameter
     public CartAdapter(List<CartItem> cartItems, OnCartChangeListener listener) {
         this.cartItems = cartItems;
         this.listener = listener;
@@ -52,18 +49,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.cartQty.setText(String.valueOf(item.quantity));
         holder.cartImage.setImageResource(item.imageRes);
 
-        // ← DAGDAG: Delete with confirmation dialog
         holder.deleteBtn.setOnClickListener(v -> {
             new AlertDialog.Builder(context)
                     .setTitle("Delete Item")
                     .setMessage("Are you sure you want to delete " + item.name + "?")
                     .setPositiveButton("Yes", (dialog, which) -> {
-                        // Remove item
                         cartItems.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, cartItems.size());
 
-                        // ← DAGDAG: Call listener para ma-update yung subtotal sa Fragment
                         if (listener != null) {
                             listener.onCartUpdated(cartItems);
                         }

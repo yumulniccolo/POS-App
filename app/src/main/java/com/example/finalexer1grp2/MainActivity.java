@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         shopToolbar.post(() -> {
             BadgeDrawable badge = BadgeDrawable.create(this);
             badge.setVisible(true);
-            badge.setNumber(0); // initial value
+            badge.setNumber(0);
 
             BadgeUtils.attachBadgeDrawable(
                     badge,

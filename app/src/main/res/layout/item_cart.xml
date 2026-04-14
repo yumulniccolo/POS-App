@@ -41,8 +41,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="12dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
             app:layout_constraintStart_toEndOf="@+id/item_img_cart"
             app:layout_constraintTop_toTopOf="parent">
 

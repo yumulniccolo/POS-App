@@ -18,22 +18,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         this.productList = productList;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, price;
-        ImageView image;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            name = itemView.findViewById(R.id.productName);
-            price = itemView.findViewById(R.id.productPrice);
-            image = itemView.findViewById(R.id.productImage);
-        }
-    }
-
-
-
     @NonNull
-
     @Override
     public ProductAdapter.ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_layout, parent, false);

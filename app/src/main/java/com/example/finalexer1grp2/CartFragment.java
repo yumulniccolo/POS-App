@@ -19,11 +19,10 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.List;
 
-// ← DAGDAG: Implement yung interface from CartAdapter
 public class CartFragment extends Fragment implements CartAdapter.OnCartChangeListener {
 
-    private RecyclerView recyclerView;  // ← DAGDAG: Instance variable para ma-access sa methods
-    private TextView tvTotal;           // ← DAGDAG: Instance variable
+    private RecyclerView recyclerView;
+    private TextView tvTotal;
 
     public CartFragment() {
     }
@@ -39,7 +38,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartChangeLi
             navController.navigate(R.id.action_cartFragment_to_productFragment);
         });
 
-        recyclerView = view.findViewById(R.id.cartRecyclerview);  // ← PALITAN: remove "RecyclerView "
+        recyclerView = view.findViewById(R.id.cartRecyclerview);
         List<CartItem> items = CartManager.getInstance().getCartItems();
         ((MainActivity) requireActivity()).updateCartBadge(items);
 
@@ -82,7 +81,6 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartChangeLi
             invoice.append("Total: ")
                     .append(CartManager.getInstance().getFormattedTotal());
 
-            // Show confirmation with invoice
             new AlertDialog.Builder(requireContext())
                     .setTitle("Confirm Order")
                     .setMessage(invoice.toString())
@@ -110,7 +108,6 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartChangeLi
         super.onResume();
         requireActivity().findViewById(R.id.shopToolbar).setVisibility(View.GONE);
 
-        // Update total when returning to screen
         if (tvTotal != null) {
             tvTotal.setText(CartManager.getInstance().getFormattedTotal());
         }
