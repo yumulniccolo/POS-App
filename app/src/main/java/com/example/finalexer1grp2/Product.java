@@ -20,4 +20,7 @@ public class Product {
         public int getImgRes() {
             return imgRes;
         }
+        public String getDescription() {
+            return description;
+        }
 }

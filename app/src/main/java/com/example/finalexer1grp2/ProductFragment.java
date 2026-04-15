@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import androidx.navigation.fragment.NavHostFragment;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,17 @@ public class ProductFragment extends Fragment {
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-        ProductAdapter adapter = new ProductAdapter(productList);
+        ProductAdapter adapter = new ProductAdapter(productList, (position, v) -> {
+            Product currentProduct = productList.get(position);
+            Bundle bundle = new Bundle();
+            bundle.putString("name", currentProduct.getName());
+            bundle.putDouble("price", currentProduct.getPrice());
+            bundle.putString("desc", currentProduct.getDescription());
+            bundle.putInt("image", currentProduct.getImgRes());
+
+            NavHostFragment.findNavController(ProductFragment.this)
+                    .navigate(R.id.action_productFragment_to_prodViewFragment, bundle);
+        });
         recyclerView.setAdapter(adapter);
     }
 }

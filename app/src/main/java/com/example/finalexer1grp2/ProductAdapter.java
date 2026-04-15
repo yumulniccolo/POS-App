@@ -14,8 +14,11 @@ import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private List<Product> productList;
-    public ProductAdapter(List<Product> productList) {
+    private ClickListener clickListener;
+
+    public ProductAdapter(List<Product> productList, ClickListener clickListener) {
         this.productList = productList;
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -35,14 +38,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productImgRes.setImageResource(currentProduct.getImgRes());
 
         holder.itemView.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("name", currentProduct.name);
-            bundle.putDouble("price", currentProduct.price);
-            bundle.putString("desc", currentProduct.description);
-            bundle.putInt("image", currentProduct.imgRes);
-
-            Navigation.findNavController(v)
-                    .navigate(R.id.action_productFragment_to_prodViewFragment, bundle);
+            if (clickListener != null) {
+                clickListener.onItemClick(position, v);
+            }
         });
     }
 

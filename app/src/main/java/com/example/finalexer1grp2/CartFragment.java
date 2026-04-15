@@ -42,19 +42,44 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartChangeLi
         List<CartItem> items = CartManager.getInstance().getCartItems();
         ((MainActivity) requireActivity()).updateCartBadge(items);
 
-        // ← PALITAN: Dagdagan ng "this" parameter para sa interface
-        CartAdapter adapter = new CartAdapter(items, this);
+        CartAdapter adapter = new CartAdapter(items, this, (position, v) -> {
+            CartItem item = items.get(position);
+            if (v.getId() == R.id.dlt_btn) {
+                new AlertDialog.Builder(requireContext())
+                        .setTitle("Delete Item")
+                        .setMessage("Are you sure you want to delete " + item.name + "?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            items.remove(position);
+                            recyclerView.getAdapter().notifyItemRemoved(position);
+                            recyclerView.getAdapter().notifyItemRangeChanged(position, items.size());
+                            tvTotal.setText(CartManager.getInstance().getFormattedTotal());
+                            ((MainActivity) requireActivity()).updateCartBadge(items);
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            } else if (v.getId() == R.id.add_btn_cart) {
+                item.quantity++;
+                recyclerView.getAdapter().notifyItemChanged(position);
+                tvTotal.setText(CartManager.getInstance().getFormattedTotal());
+                ((MainActivity) requireActivity()).updateCartBadge(items);
+            } else if (v.getId() == R.id.minus_btn_cart) {
+                if (item.quantity > 1) {
+                    item.quantity--;
+                    recyclerView.getAdapter().notifyItemChanged(position);
+                    tvTotal.setText(CartManager.getInstance().getFormattedTotal());
+                    ((MainActivity) requireActivity()).updateCartBadge(items);
+                }
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-        // Display total
-        tvTotal = view.findViewById(R.id.tvTotal);  // ← PALITAN: remove "TextView "
+        tvTotal = view.findViewById(R.id.tvTotal);
         tvTotal.setText(CartManager.getInstance().getFormattedTotal());
 
-        // Place Order button code - UPDATED with empty cart check and invoice
         Button btnPlaceOrder = view.findViewById(R.id.btnPlaceOrder);
         btnPlaceOrder.setOnClickListener(v -> {
-            // ← DAGDAG: Check if cart is empty
+
             if (CartManager.getInstance().getCartItems().isEmpty()) {
                 new AlertDialog.Builder(requireContext())
                         .setTitle("Cart is Empty")
@@ -64,7 +89,6 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartChangeLi
                 return;
             }
 
-            // ← DAGDAG: Build invoice summary
             StringBuilder invoice = new StringBuilder();
             invoice.append("Order Summary:\n\n");
 

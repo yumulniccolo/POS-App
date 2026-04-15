@@ -18,17 +18,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     private List<CartItem> cartItems;
     private Context context;
+    private ClickListener clickListener;
 
     public interface OnCartChangeListener {
         void onCartUpdated(List<CartItem> updatedCart);
-
     }
 
     private OnCartChangeListener listener;
 
-    public CartAdapter(List<CartItem> cartItems, OnCartChangeListener listener) {
+    public CartAdapter(List<CartItem> cartItems, OnCartChangeListener listener, ClickListener clickListener) {
         this.cartItems = cartItems;
         this.listener = listener;
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -49,42 +50,27 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.cartQty.setText(String.valueOf(item.quantity));
         holder.cartImage.setImageResource(item.imageRes);
 
-        holder.deleteBtn.setOnClickListener(v -> {
-            new AlertDialog.Builder(context)
-                    .setTitle("Delete Item")
-                    .setMessage("Are you sure you want to delete " + item.name + "?")
-                    .setPositiveButton("Yes", (dialog, which) -> {
-                        cartItems.remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, cartItems.size());
+        holder.itemView.setOnClickListener(v -> {
+            if (clickListener != null) {
+                clickListener.onItemClick(position, v);
+            }
+        });
 
-                        if (listener != null) {
-                            listener.onCartUpdated(cartItems);
-                        }
-                    })
-                    .setNegativeButton("No", null)
-                    .show();
+        holder.deleteBtn.setOnClickListener(v -> {
+            if (clickListener != null) {
+                clickListener.onItemClick(position, v);
+            }
         });
 
         holder.addBtn.setOnClickListener(v -> {
-            item.quantity++;
-            holder.cartQty.setText(String.valueOf(item.quantity));
-            holder.cartPrice.setText(String.format("₱%.2f", item.getTotalPrice()));
-
-            if (listener != null) {
-                listener.onCartUpdated(cartItems);
+            if (clickListener != null) {
+                clickListener.onItemClick(position, v);
             }
         });
 
         holder.minusBtn.setOnClickListener(v -> {
-            if (item.quantity > 1) {
-                item.quantity--;
-                holder.cartQty.setText(String.valueOf(item.quantity));
-                holder.cartPrice.setText(String.format("₱%.2f", item.getTotalPrice()));
-
-                if (listener != null) {
-                    listener.onCartUpdated(cartItems);
-                }
+            if (clickListener != null) {
+                clickListener.onItemClick(position, v);
             }
         });
     }
