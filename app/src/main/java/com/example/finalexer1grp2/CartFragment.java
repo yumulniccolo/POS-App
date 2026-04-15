@@ -19,7 +19,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.List;
 
-public class CartFragment extends Fragment implements CartAdapter.OnCartChangeListener {
+public class CartFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private TextView tvTotal;
@@ -42,7 +42,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartChangeLi
         List<CartItem> items = CartManager.getInstance().getCartItems();
         ((MainActivity) requireActivity()).updateCartBadge(items);
 
-        CartAdapter adapter = new CartAdapter(items, this, (position, v) -> {
+        CartAdapter adapter = new CartAdapter(items, (position, v) -> {
             CartItem item = items.get(position);
             if (v.getId() == R.id.dlt_btn) {
                 new AlertDialog.Builder(requireContext())
@@ -119,12 +119,6 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartChangeLi
         });
 
         return view;
-    }
-
-    @Override
-    public void onCartUpdated(List<CartItem> updatedCart) {
-        tvTotal.setText(CartManager.getInstance().getFormattedTotal());
-        ((MainActivity) requireActivity()).updateCartBadge(updatedCart);
     }
 
     @Override

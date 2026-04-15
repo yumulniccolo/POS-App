@@ -13,7 +13,7 @@
     app:cardElevation="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="361dp"
+        android:layout_width="match_parent"
         android:layout_height="73dp"
         android:padding="12dp"
         android:paddingStart="12dp"
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="8dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
@@ -69,9 +69,9 @@
 
         <ImageButton
             android:id="@+id/dlt_btn"
-            android:layout_width="30dp"
+            android:layout_width="0dp"
             android:layout_height="32dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Delete item"
             app:layout_constraintBottom_toBottomOf="parent"

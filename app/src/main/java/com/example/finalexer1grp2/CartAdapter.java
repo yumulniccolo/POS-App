@@ -1,6 +1,5 @@
 package com.example.finalexer1grp2;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,15 +19,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private Context context;
     private ClickListener clickListener;
 
-    public interface OnCartChangeListener {
-        void onCartUpdated(List<CartItem> updatedCart);
-    }
-
-    private OnCartChangeListener listener;
-
-    public CartAdapter(List<CartItem> cartItems, OnCartChangeListener listener, ClickListener clickListener) {
+    public CartAdapter(List<CartItem> cartItems, ClickListener clickListener) {
         this.cartItems = cartItems;
-        this.listener = listener;
         this.clickListener = clickListener;
     }
 
